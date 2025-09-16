@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://dm0eb3e22akg5"]
+
+[ext_resource type="PackedScene" uid="uid://bcwo61stp6xk8" path="res://scenes/BaseScene.tscn" id="1_kttkb"]
+[ext_resource type="PackedScene" uid="uid://cfi4u18nxid2k" path="res://scenes/DrumPart/DrumPart.tscn" id="2_kedkv"]
+[ext_resource type="AudioStream" uid="uid://c11wf4f61fwab" path="res://Sound/bass-drum-sound-effects.mp3" id="3_u0cg6"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_u0cg6"]
+height = 0.12451172
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qpv0h"]
+height = 0.2
+
+[node name="SceneBase" instance=ExtResource("1_kttkb")]
+
+[node name="DrumBass" parent="." index="4" instance=ExtResource("2_kedkv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.86551255, -0.94298315)
+on_hit_sound = ExtResource("3_u0cg6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DrumBass/Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1027832, 0)
+shape = SubResource("CylinderShape3D_u0cg6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DrumBass" index="2"]
+mesh = SubResource("CylinderMesh_qpv0h")
+
+[editable path="DrumBass"]
