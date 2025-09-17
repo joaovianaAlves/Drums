@@ -1,14 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://dm0eb3e22akg5"]
+[gd_scene load_steps=10 format=3 uid="uid://dm0eb3e22akg5"]
 
 [ext_resource type="PackedScene" uid="uid://bcwo61stp6xk8" path="res://scenes/BaseScene.tscn" id="1_kttkb"]
 [ext_resource type="PackedScene" uid="uid://cfi4u18nxid2k" path="res://scenes/DrumPart/DrumPart.tscn" id="2_kedkv"]
 [ext_resource type="AudioStream" uid="uid://c11wf4f61fwab" path="res://Sound/bass-drum-sound-effects.mp3" id="3_u0cg6"]
+[ext_resource type="Script" uid="uid://cvtw30m5arq1t" path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" id="4_p1isn"]
+[ext_resource type="PackedScene" uid="uid://ctw7nbntd5pcj" path="res://addons/godot-xr-tools/objects/grab_points/grab_point_hand_right.tscn" id="5_pcxrn"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_u0cg6"]
 height = 0.12451172
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_qpv0h"]
 height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_acrvm"]
+albedo_color = Color(1, 1, 0, 1)
+rim_enabled = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_58j8t"]
+material = SubResource("StandardMaterial3D_acrvm")
+flip_faces = true
+top_radius = 0.52
+bottom_radius = 0.52
+height = 0.22
 
 [node name="SceneBase" instance=ExtResource("1_kttkb")]
 
@@ -22,5 +35,16 @@ shape = SubResource("CylinderShape3D_u0cg6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DrumBass" index="2"]
 mesh = SubResource("CylinderMesh_qpv0h")
+
+[node name="XRToolsHighlightVisible" type="Node3D" parent="DrumBass" index="3"]
+script = ExtResource("4_p1isn")
+metadata/_custom_type_script = "uid://cvtw30m5arq1t"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DrumBass/XRToolsHighlightVisible" index="0"]
+mesh = SubResource("CylinderMesh_58j8t")
+
+[node name="GrabPointHandRight" parent="DrumBass" index="4" instance=ExtResource("5_pcxrn")]
+transform = Transform3D(-0.07896371, -0.9968775, 0, 0.9968775, -0.07896371, 0, 0, 0, 1, -0.02284199, 0.08700198, 0.38903522)
+visible = true
 
 [editable path="DrumBass"]
